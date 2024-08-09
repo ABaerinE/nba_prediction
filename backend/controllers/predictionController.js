@@ -11,12 +11,13 @@ exports.getPlayerPrediction = async (req, res) => {
     const playerStats = await getPlayerStats(playerID);
 
     // Process data and get prediction
+    const jsonData = JSON.stringify(playerStats.response);
+    fs.writeFileSync('../models/playerStats.json', jsonData, 'utf8');
 
     let options = {
         mode: 'text',
         pythonOptions: ['-u'],
         scriptPath: path.join(__dirname, '../models/'),
-        args: [JSON.stringify(playerStats.response)]
     };
 
     PythonShell.run('predictionModel.py', options, function (err, results) {
