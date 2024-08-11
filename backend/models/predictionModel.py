@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -5,7 +6,9 @@ from sklearn.pipeline import Pipeline
 from sklearn.linear_model import Ridge
 
 # Read the input data
-input_data = initial_data = pd.read_json('./playerStats.json')
+
+file_path = sys.argv[1]
+initial_data = pd.read_json(file_path)
 initial_data = initial_data.drop(['player', 'team', 'game', 'pos', 'min', 'pFouls', 'steals', 'turnovers', 'blocks', 'plusMinus', 'comment'], axis = 1)
 initial_data.dropna(inplace=True)
 initial_data.reset_index(drop=True, inplace=True)

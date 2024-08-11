@@ -1,5 +1,4 @@
 const axios = require('axios');
-const { PythonShell } = require('python-shell');
 const path = require('path');
 
 async function getPlayerID(firstName, lastName) {
