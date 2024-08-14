@@ -11,7 +11,6 @@ async function getPlayerPrediction(req, res) {
     const playerID = await getPlayerID(firstName, lastName);
     const playerStats = await getPlayerStats(playerID);
 
-
     // Process data and get prediction
     const jsonData = JSON.stringify(playerStats.response);
     const filePath = path.join(__dirname, '../models/playerStats.json');

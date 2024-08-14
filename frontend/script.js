@@ -8,7 +8,6 @@ async function getPrediction() {
             },
             body: JSON.stringify({ playerName }),
         });
-        console.log(playerName);
         const data = await response.json();
         document.getElementById('prediction').innerText = `Prediction: ${data.prediction}`;
     } catch (error) {

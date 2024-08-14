@@ -1,11 +1,12 @@
 const axios = require('axios');
-const path = require('path');
 
 async function getPlayerID(firstName, lastName) {
+    const lowLastName = lastName.toLowerCase();
+    const finLastName = lowLastName[0].toLowerCase() + lowLastName.slice(1);
     var config = {
         method: 'GET',
         url: 'https://api-nba-v1.p.rapidapi.com/players',
-        params: {name: lastName},
+        params: {name: finLastName},
         headers: {
             'x-rapidapi-key': 'd6d7a77694mshc98c7cd1c74c922p1ea73djsnc8465fa4fb96',
             'x-rapidapi-host': 'api-nba-v1.p.rapidapi.com'
@@ -14,11 +15,11 @@ async function getPlayerID(firstName, lastName) {
 
     try {
         // Fetch player ID from NBA API
-        const response = await axios(config)
+        const response = await axios.request(config);
         const res = response.data.response;
 
         for (let i = 0; i < res.length; i += 1) {
-            if (res[i].firstname === firstName) {
+            if (res[i].firstname.toLowerCase() === firstName.toLowerCase()) {
                 return res[i].id
             }
         }
@@ -35,7 +36,7 @@ async function getPlayerStats(playerID) {
     var config  = {
         method: 'GET',
         url: 'https://api-nba-v1.p.rapidapi.com/players/statistics',
-        params: {id: `${playerID}`, season: '2016'},
+        params: {id: `${playerID}`, season: '2023'},
         headers: {
             'x-rapidapi-key': 'd6d7a77694mshc98c7cd1c74c922p1ea73djsnc8465fa4fb96',
             'x-rapidapi-host': 'api-nba-v1.p.rapidapi.com'
@@ -44,7 +45,7 @@ async function getPlayerStats(playerID) {
 
     try {
         //fetch player statistics from NBA API
-        const response = await axios(config);
+        const response = await axios.request(config);
         return response.data;
         
     }
